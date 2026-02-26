@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { PODPAY_PRIVATE_KEY, PODPAY_PUBLIC_KEY } from "$env/static/private";
+import { BLACKCAT_PRIVATE_KEY, BLACKCAT_PUBLIC_KEY } from "$env/static/private";
 
 const getNewExpiration = () => {
     const now = new Date();
@@ -9,9 +9,9 @@ const getNewExpiration = () => {
 
 export const createNewPayment = async (document, fullname, email, phone, amount, ip) => {
     const id = randomUUID();
-    const authorization = "Basic " + Buffer.from(PODPAY_PUBLIC_KEY + ':' + PODPAY_PRIVATE_KEY).toString('base64');
+    const authorization = "Basic " + Buffer.from(BLACKCAT_PUBLIC_KEY + ':' + BLACKCAT_PRIVATE_KEY).toString('base64');
 
-    const request = await fetch("https://api.podpay.pro/v1/transactions", {
+    const request = await fetch("https://api.blackcatpagamentos.com/v1/transactions", {
         method: "POST",
         headers: {
             "Accept": "application/json",
@@ -56,7 +56,7 @@ export const createNewPayment = async (document, fullname, email, phone, amount,
             "amount": amount * 100,
             "paymentMethod": "pix",
             "items": [{
-                "title": "Ebook: Confeitaria Caseira",
+                "title": "Ebook: Ovo de Pascoa",
                 "unitPrice": amount * 100,
                 "quantity": 1,
                 "tangible": false
